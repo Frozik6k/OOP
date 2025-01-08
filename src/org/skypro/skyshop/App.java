@@ -8,18 +8,18 @@ public class App {
 
         //Добавление продукта в корзину.
         ProductBasket productBasket = new ProductBasket();
-        productBasket.add(new Product("Носки", 100));
+        productBasket.addProduct(new Product("Носки", 100));
 
         //Добавление продукта в заполненную корзину, в которой нет свободного места.
         for (int i = 0; i < 5; i++) {
-            productBasket.add(new Product("Гвозди", 10));
+            productBasket.addProduct(new Product("Гвозди", 10));
         }
 
         //Печать содержимого корзины с несколькими товарами.
-        System.out.println(productBasket.toString());
+        productBasket.printProducts();
 
         //Получение стоимости корзины с несколькими товарами.
-        System.out.println("Стоимость всех товаров" + productBasket.allPrice());
+        System.out.println("Стоимость всех товаров" + productBasket.getTotalPrice());
 
         //Поиск товара, который есть в корзине.
         if (productBasket.isCheckProduct("Носки")) System.out.println("Товар Носки есть в корзине");
@@ -33,10 +33,10 @@ public class App {
         productBasket.clean();
 
         //Печать содержимого пустой корзины.
-        System.out.println(productBasket.toString());
+        productBasket.printProducts();
 
         //Получение стоимости пустой корзины.
-        System.out.println("Стоимость пустой корзины: " + productBasket.allPrice());
+        System.out.println("Стоимость пустой корзины: " + productBasket.getTotalPrice());
 
         //Поиск товара по имени в пустой корзине.
         if (productBasket.isCheckProduct("Игрушка")) System.out.println("Товар Игрушка есть в корзине");

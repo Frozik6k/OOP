@@ -7,21 +7,13 @@ import java.util.ArrayList;
 public class ProductBasket {
     private Product[] products = new Product[5];
 
-    public ProductBasket(){ }
-    public ProductBasket(Product product){
-        if (product != null)
-            for (int i = 0; i < products.length; i++) {
-                if (products[i] == null){
-                    products[i] = product;
-                    return;
-                }
-            }
+    public ProductBasket() {
     }
 
-    public void add(Product product){
+    public void addProduct(Product product) {
         if (product != null)
             for (int i = 0; i < products.length; i++) {
-                if (products[i] == null){
+                if (products[i] == null) {
                     products[i] = product;
                     return;
                 }
@@ -29,41 +21,40 @@ public class ProductBasket {
         System.out.println("Невозможно добавить продукт");
     }
 
-    public int allPrice(){
+    public int getTotalPrice() {
         int result = 0;
-        for(Product product : products){
+        for (Product product : products) {
             if (product != null) result = result + product.getPrice();
         }
         return result;
     }
 
-    @Override
-    public String toString() {
+    public void printProducts() {
         String result = "";
         boolean isCheck = false;
-        for(Product product : products){
-            if (product != null){
+        for (Product product : products) {
+            if (product != null) {
                 result = result + product.getName() + ": " + product.getPrice() + "\n";
                 isCheck = true;
             }
 
         }
 
-        if (isCheck) result = result + "Итого: " + allPrice();
+        if (isCheck) result = result + "Итого: " + getTotalPrice();
         else result = "в корзине пусто";
 
-        return result;
+        System.out.println(result);;
     }
 
-    public boolean isCheckProduct(String nameProduct){
-        for (Product product : products){
+    public boolean isCheckProduct(String nameProduct) {
+        for (Product product : products) {
             if (product != null)
                 if (product.getName().equals(nameProduct)) return true;
         }
         return false;
     }
 
-    public void clean(){
+    public void clean() {
         for (int i = 0; i < products.length; i++) {
             products[i] = null;
         }
