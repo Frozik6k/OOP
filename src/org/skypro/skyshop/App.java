@@ -47,6 +47,5 @@ public class App {
         else System.out.println("Товара Игрушка нет в корзине");
 
 
-
     }
 }
