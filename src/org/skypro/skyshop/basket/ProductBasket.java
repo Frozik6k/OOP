@@ -3,6 +3,7 @@ package org.skypro.skyshop.basket;
 import org.skypro.skyshop.product.Product;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ProductBasket {
     private Product[] products = new Product[5];
@@ -66,4 +67,12 @@ public class ProductBasket {
     }
 
 
+    @Override
+    public String toString() {
+        String result = "";
+        for( Product product : products){
+            if (product != null) result+=product+"\n";
+        }
+        return result;
+    }
 }
