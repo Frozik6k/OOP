@@ -27,4 +27,26 @@ public class SearchEngine {
         this.searches[indexSearchable] = searchable;
         indexSearchable+=1;
     }
+
+    public Searchable foundBestResult(String search) throws BestResultNotFound {
+        Searchable result = null;
+        int countEntryResult = 0;
+        for (Searchable searchable : this.searches){
+            if (searchable != null){
+                int countEntry = 0;
+                int index = 0;
+                int indexSubString = searchable.searchTerm().indexOf(search, index);
+                while (indexSubString != -1){
+                    countEntry++;
+                    index = index + search.length();
+                    indexSubString = searchable.searchTerm().indexOf(search, index);
+                }
+                if (countEntryResult < countEntry) result = searchable;
+            }
+        }
+        if (result == null)
+            throw new BestResultNotFound("Для поисковой строки \"" + search + "\" не нашлось подходящей строки");
+        return result;
+    }
+
 }

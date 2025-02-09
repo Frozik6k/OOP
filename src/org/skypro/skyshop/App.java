@@ -6,7 +6,9 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.product.article.Article;
+import org.skypro.skyshop.product.search.BestResultNotFound;
 import org.skypro.skyshop.product.search.SearchEngine;
+import org.skypro.skyshop.product.search.Searchable;
 
 import java.util.Arrays;
 
@@ -64,6 +66,57 @@ public class App {
         System.out.println(Arrays.toString(searchEngine.search("Телевизор")));
         System.out.println(Arrays.toString(searchEngine.search("Носки")));
         System.out.println(Arrays.toString(searchEngine.search("Кофта")));
+
+        // Тестируем ввод не правильных данных
+        try {
+            new SimpleProduct(null, 10);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        try {
+            new SimpleProduct("   ", 40);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        try {
+            new SimpleProduct("Смартфон", 0);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        try {
+            new DiscountedProduct("Ноутбук", -1, 23);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        try {
+            new DiscountedProduct("Мотоцикл", 200000, -1);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        try {
+            new DiscountedProduct("Клавиатура", 5000, 101);
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
+
+        searchEngine.add(new Article("Компьютеры", "Слово компьютер является производным" +
+                "от английских слов to compute, computer, которые переводятся как «вычислять», «вычислитель» " +
+                "(английское слово, в свою очередь, происходит от латинского computāre — «вычислять»). Первоначально в " +
+                "английском языке это слово означало человека, производящего арифметические вычисления с привлечением или без " +
+                "привлечения механических устройств. В дальнейшем его значение было перенесено на сами машины, однако современные компьютеры выполняют множество задач, не связанных напрямую с математикой.")
+        );
+
+        try {
+            System.out.println(searchEngine.foundBestResult("компьютер").searchTerm());
+            System.out.println(searchEngine.foundBestResult("Кукарача").searchTerm());
+        } catch (BestResultNotFound exception){
+            System.out.println(exception.getMessage());
+        }
 
     }
 }
