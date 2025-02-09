@@ -22,7 +22,7 @@ public class DiscountedProduct extends Product {
 
     @Override
     public int getPrice() {
-        return this.baseprice - (this.baseprice * this.discount);
+        return this.baseprice - (this.baseprice/100 * this.discount);
     }
 
     @Override
