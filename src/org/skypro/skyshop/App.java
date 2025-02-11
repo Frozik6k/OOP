@@ -11,6 +11,7 @@ import org.skypro.skyshop.product.search.SearchEngine;
 import org.skypro.skyshop.product.search.Searchable;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -18,7 +19,7 @@ public class App {
         //Добавление продукта в корзину.
         ProductBasket productBasket = new ProductBasket();
         productBasket.addProduct(new SimpleProduct("Носки", 100));
-        productBasket.addProduct(new DiscountedProduct("Носки", 100, 10));
+        productBasket.addProduct(new DiscountedProduct("Носки", 200, 10));
         productBasket.addProduct(new FixPriceProduct("Книга"));
         productBasket.addProduct(new FixPriceProduct("Кофта"));
         productBasket.addProduct(new DiscountedProduct("Брюки", 500, 30));
@@ -27,7 +28,7 @@ public class App {
         productBasket.printProducts();
 
         //Получение стоимости корзины с несколькими товарами.
-        System.out.println("Стоимость всех товаров" + productBasket.getTotalPrice());
+        System.out.println("Стоимость всех товаров: " + productBasket.getTotalPrice());
 
         //Поиск товара, который есть в корзине.
         if (productBasket.isCheckProduct("Носки")) System.out.println("Товар Носки есть в корзине");
@@ -38,6 +39,23 @@ public class App {
         else System.out.println("Товара Телевизор нет в корзине");
 
         System.out.println(productBasket);
+
+        // Удалить существующий продукт из корзины
+        List<Product> listRemoveProduct = productBasket.removeNameProducts("Носки");
+        System.out.println("удаленные товары: " + listRemoveProduct.toString());
+
+        // Товары которые остались после удаления
+        System.out.println("Оставшийся товар: ");
+        productBasket.printProducts();
+        System.out.println();
+
+        // Удалить не существующий продукт
+        listRemoveProduct = productBasket.removeNameProducts("Телевизор");
+        if (listRemoveProduct.isEmpty()) System.out.println("Список пуст");
+        System.out.println();
+
+        productBasket.printProducts();
+        System.out.println();
 
         //Очистка корзины.
         productBasket.clean();
@@ -53,7 +71,7 @@ public class App {
         else System.out.println("Товара Игрушка нет в корзине");
 
         // Добавляем товары и статьи в класс для последующего поиска
-        SearchEngine searchEngine = new SearchEngine(10);
+        SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(new SimpleProduct("Носки", 100));
         searchEngine.add(new DiscountedProduct("Носки", 100, 10));
         searchEngine.add(new FixPriceProduct("Кофта"));
@@ -63,9 +81,11 @@ public class App {
         searchEngine.add(new Article("Носки", "Спортивные носки"));
 
         // Осуществляем несколько поисков и вывод результатов
-        System.out.println(Arrays.toString(searchEngine.search("Телевизор")));
-        System.out.println(Arrays.toString(searchEngine.search("Носки")));
-        System.out.println(Arrays.toString(searchEngine.search("Кофта")));
+        System.out.println();
+        System.out.println(searchEngine.search("Телевизор"));
+        System.out.println(searchEngine.search("Носки"));
+        System.out.println(searchEngine.search("Кофта"));
+        System.out.println();
 
         // Тестируем ввод не правильных данных
         try {
