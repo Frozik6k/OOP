@@ -6,7 +6,7 @@ public interface Searchable {
 
     String getContent();
 
-    default String getStringRepresentation(Searchable searchable){
+    default String getStringRepresentation(Searchable searchable) {
         return "имя Searchable объекта — тип Searchable-объекта";
     }
 }
