@@ -82,9 +82,9 @@ public class App {
 
         // Осуществляем несколько поисков и вывод результатов
         System.out.println();
-        System.out.println(searchEngine.search("Телевизор"));
-        System.out.println(searchEngine.search("Носки"));
-        System.out.println(searchEngine.search("Кофта"));
+        System.out.println(searchEngine.search("Телевизор").values());
+        System.out.println(searchEngine.search("Носки").values());
+        System.out.println(searchEngine.search("Кофта").values());
         System.out.println();
 
         // Тестируем ввод не правильных данных
@@ -134,7 +134,7 @@ public class App {
         try {
             System.out.println(searchEngine.foundBestResult("компьютер").searchTerm());
             System.out.println(searchEngine.foundBestResult("Кукарача").searchTerm());
-        } catch (BestResultNotFound exception){
+        } catch (BestResultNotFound exception) {
             System.out.println(exception.getMessage());
         }
 
