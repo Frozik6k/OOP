@@ -4,15 +4,21 @@ import java.util.*;
 
 public class SearchEngine {
 
-    private Map<String, Searchable> searches = new HashMap<>();
+    private Set<Searchable> searches = new HashSet<>();
 
-    public Map<String, Searchable> search(String searchText) {
+    public Set<Searchable> search(String searchText) {
 
-        Map<String, Searchable> result = new TreeMap<>();
+        Set<Searchable> result = new TreeSet<>(new Comparator<Searchable>() {
+            @Override
+            public int compare(Searchable o1, Searchable o2) {
+                if (o1.searchTerm().length() == o2.searchTerm().length()) return o1.searchTerm().compareTo(o2.searchTerm());
+                return o2.searchTerm().length() - o1.searchTerm().length();
+            }
+        });
 
-        for (Searchable search : searches.values()) {
+        for (Searchable search : searches) {
             if (search.searchTerm().contains(searchText)) {
-                result.put(search.searchTerm(), search);
+                result.add(search);
             }
 
         }
@@ -22,13 +28,13 @@ public class SearchEngine {
     }
 
     public void add(Searchable searchable) {
-        this.searches.put(searchable.searchTerm(), searchable);
+        this.searches.add(searchable);
     }
 
     public Searchable foundBestResult(String search) throws BestResultNotFound {
         Searchable result = null;
         int countEntryResult = 0;
-        for (Searchable searchable : this.searches.values()) {
+        for (Searchable searchable : this.searches) {
             if (searchable != null) {
                 int countEntry = 0;
                 int index = 0;

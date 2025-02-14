@@ -74,17 +74,18 @@ public class App {
         SearchEngine searchEngine = new SearchEngine();
         searchEngine.add(new SimpleProduct("Носки", 100));
         searchEngine.add(new DiscountedProduct("Носки", 100, 10));
-        searchEngine.add(new FixPriceProduct("Кофта"));
+        searchEngine.add(new FixPriceProduct("Кофточка"));
+        searchEngine.add(new FixPriceProduct("Голубика"));
         searchEngine.add(new FixPriceProduct("Носки"));
         searchEngine.add(new Article("Носки", "Спортивные носки"));
-        searchEngine.add(new Article("Кофта", "Самая лучшая кофточка"));
-        searchEngine.add(new Article("Носки", "Спортивные носки"));
+        searchEngine.add(new Article("Кофточка", "Самая лучшая кофточка"));
+        searchEngine.add(new Article("Носки", "Спортивные носки Adic"));
 
         // Осуществляем несколько поисков и вывод результатов
         System.out.println();
-        System.out.println(searchEngine.search("Телевизор").values());
-        System.out.println(searchEngine.search("Носки").values());
-        System.out.println(searchEngine.search("Кофта").values());
+        System.out.println(searchEngine.search("Телевизор"));
+        System.out.println(searchEngine.search("Носки"));
+        System.out.println(searchEngine.search("о"));
         System.out.println();
 
         // Тестируем ввод не правильных данных
