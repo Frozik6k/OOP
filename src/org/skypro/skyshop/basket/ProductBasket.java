@@ -15,33 +15,16 @@ public class ProductBasket {
     }
 
     public int getTotalPrice() {
-        int result = 0;
-        for (Map.Entry<String, List<Product>> entry : products.entrySet()) {
-            for (Product product : entry.getValue()) {
-                result = result + product.getPrice();
-            }
-        }
-        return result;
+        return products.values().stream().flatMap(Collection::stream)
+                .mapToInt(Product::getPrice).sum();
     }
 
     public void printProducts() {
-
-        String result = "";
-        boolean isCheck = false;
-
-        for (Map.Entry<String, List<Product>> entry : products.entrySet()) {
-            for (Product product : entry.getValue()) {
-                result = result + product.getName() + ": " + product.getPrice() + "\n";
-                isCheck = true;
-            }
-        }
-
-
-        if (isCheck) result = result + "Итого: " + getTotalPrice();
-        else result = "в корзине пусто";
-
-        System.out.println(result);
-        ;
+        products.values().stream().flatMap(Collection::stream)
+                .forEach(product -> System.out.println(product.getName() + ": " + product.getPrice() + "\n"));
+        if (products.values().stream().flatMap(Collection::stream).count() >= 1)
+            System.out.println("Итого: " + getTotalPrice());
+        else System.out.println("в корзине пусто");
     }
 
     public boolean isCheckProduct(String nameProduct) {
